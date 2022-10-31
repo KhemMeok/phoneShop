@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.khem.appspring.springphoneshop.dto.BrandDTO;
 import com.khem.appspring.springphoneshop.model.Brand;
 import com.khem.appspring.springphoneshop.repository.BrandRepository;
 import com.khem.appspring.springphoneshop.service.BrandService;
@@ -34,6 +35,13 @@ public class BrandServiceimpl implements BrandService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND,String.format("brand not found for Id : %d", id));
          }
          
+    }
+
+    @Override
+    public Brand update(Integer id, BrandDTO dto) {
+        Brand brand = getById(id);
+        brand.setName(dto.getName());
+                return brand;
     }
 
 }

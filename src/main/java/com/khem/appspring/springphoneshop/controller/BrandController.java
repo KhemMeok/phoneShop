@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,4 +35,9 @@ public class BrandController {
     public ResponseEntity<?> getById(@PathVariable("id") int id){
         return ResponseEntity.ok(brandService.getById(id));
     } 
+    @PutMapping("{id}")
+    public ResponseEntity<?> update(@PathVariable("id") int id,@RequestBody BrandDTO dto){
+        return ResponseEntity.ok(brandService.getById(id));
+    }
+
 }
