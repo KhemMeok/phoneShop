@@ -1,7 +1,10 @@
 package com.khem.appspring.springphoneshop.service.serviceimpl;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.juli.logging.Log;
+// import org.hibernate.annotations.common.util.impl.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,9 @@ import com.khem.appspring.springphoneshop.model.Brand;
 import com.khem.appspring.springphoneshop.repository.BrandRepository;
 import com.khem.appspring.springphoneshop.service.BrandService;
 
+import lombok.extern.slf4j.Slf4j;
+ 
+@Slf4j
 @Service
 public class BrandServiceimpl implements BrandService {
 
@@ -41,7 +47,22 @@ public class BrandServiceimpl implements BrandService {
     public Brand update(Integer id, BrandDTO dto) {
         Brand brand = getById(id);
         brand.setName(dto.getName());
-                return brand;
+        return brandRepository.save(brand);
+    }
+
+    @Override
+    public void delete(Integer id) {
+       Brand brand = getById(id);
+       brandRepository.delete(brand);
+       log.info("brand with id = %d is deleted".formatted(id));
+    //    log.info("brand with id = %d is deleted", id);
+        
+    }
+
+    @Override
+    public List<Brand> findAll() {
+     
+        return brandRepository.findAll();
     }
 
 }
