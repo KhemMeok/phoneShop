@@ -3,8 +3,7 @@ package com.khem.appspring.springphoneshop.service.serviceimpl;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.juli.logging.Log;
-// import org.hibernate.annotations.common.util.impl.Log;
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
