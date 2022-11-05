@@ -3,10 +3,6 @@ package com.khem.appspring.springphoneshop.controller;
  
 
 import java.util.List;
- 
- 
-
- 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +20,11 @@ import com.khem.appspring.springphoneshop.mapper.BrandMapper;
 import com.khem.appspring.springphoneshop.model.Brand;
 import com.khem.appspring.springphoneshop.service.BrandService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/brands")
+@RequiredArgsConstructor
 public class BrandController {
 
     @Autowired
@@ -34,7 +33,7 @@ public class BrandController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BrandDTO dto) {
 
-        Brand brand = BrandMapper.toBrand(dto);
+        Brand brand = BrandMapper.INSTANCE.toEntiry(dto);
         brand = brandService.save(brand);
         return ResponseEntity.ok(brand);
     }
@@ -54,11 +53,11 @@ public class BrandController {
     }
     @GetMapping
     public ResponseEntity<?> getAll(){
-        List<BrandDTO> brands = brandService.findAll()
+         List<BrandDTO> brand = brandService.findAll()
         .stream()
-               .map(b->BrandMapper.toBrandDTO(b)).toList();
-             //  .collect(Collectors.toList());
-        return ResponseEntity.ok(brands);
+               .map(b->BrandMapper.INSTANCE.toDTO(b)).toList();
+           
+        return   ResponseEntity.ok(brand);
     } 
 
 }

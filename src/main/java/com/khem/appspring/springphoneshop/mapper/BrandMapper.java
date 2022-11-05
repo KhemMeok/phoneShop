@@ -1,21 +1,16 @@
 package com.khem.appspring.springphoneshop.mapper;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
 import com.khem.appspring.springphoneshop.dto.BrandDTO;
 import com.khem.appspring.springphoneshop.model.Brand;
 
-public class BrandMapper {
-    public static Brand toBrand(BrandDTO dto){
+@Mapper
+public interface BrandMapper {
+    BrandMapper INSTANCE = Mappers.getMapper(BrandMapper.class);
 
-        Brand brand = new Brand();
-        brand.setName(dto.getName());
-        return brand;
+    Brand toEntiry(BrandDTO dto);
+    BrandDTO toDTO(Brand entity);
 
-    }
-    public static BrandDTO toBrandDTO(Brand b){
-
-        BrandDTO brandDTO = new BrandDTO();
-        brandDTO.setName(b.getName());
-        return brandDTO;
-
-    }
 }
