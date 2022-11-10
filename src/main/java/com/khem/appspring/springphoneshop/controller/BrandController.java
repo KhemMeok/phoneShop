@@ -1,7 +1,5 @@
 package com.khem.appspring.springphoneshop.controller;
 
- 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.khem.appspring.springphoneshop.dto.BrandDTO;
+import com.khem.appspring.springphoneshop.exception.ApiException;
 import com.khem.appspring.springphoneshop.mapper.BrandMapper;
 import com.khem.appspring.springphoneshop.model.Brand;
 import com.khem.appspring.springphoneshop.service.BrandService;
@@ -37,27 +36,31 @@ public class BrandController {
         brand = brandService.save(brand);
         return ResponseEntity.ok(brand);
     }
+
     @GetMapping("{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") int id){
+    public ResponseEntity<?> getById(@PathVariable("id") int id) throws ApiException {
         return ResponseEntity.ok(brandService.getById(id));
-    } 
-    @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id,@RequestBody BrandDTO dto){
-    
-        return ResponseEntity.ok(brandService.update(id,dto));
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody BrandDTO dto) throws ApiException {
+
+        return ResponseEntity.ok(brandService.update(id, dto));
+    }
+
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") int id){
+    public ResponseEntity<?> deleteById(@PathVariable("id") int id) throws ApiException {
         brandService.delete(id);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping
-    public ResponseEntity<?> getAll(){
-         List<BrandDTO> brand = brandService.findAll()
-        .stream()
-               .map(b->BrandMapper.INSTANCE.toDTO(b)).toList();
-           
-        return   ResponseEntity.ok(brand);
-    } 
+    public ResponseEntity<?> getAll() {
+        List<BrandDTO> brand = brandService.findAll()
+                .stream()
+                .map(b -> BrandMapper.INSTANCE.toDTO(b)).toList();
+
+        return ResponseEntity.ok(brand);
+    }
 
 }
