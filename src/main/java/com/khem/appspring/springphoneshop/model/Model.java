@@ -16,9 +16,8 @@ import lombok.Data;
 @Data
 public class Model {
     @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(generator = "models_seq_generator")
-    @SequenceGenerator(name = "models_seq_generator", initialValue = 1, sequenceName ="models_seq_generator")
+    @SequenceGenerator(name = "models_seq_generator", initialValue = 1, sequenceName = "models_seq_generator")
     private Integer id;
 
     @Column(name = "models_column")
