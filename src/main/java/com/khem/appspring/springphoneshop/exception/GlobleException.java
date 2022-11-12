@@ -13,8 +13,6 @@ public class GlobleException {
     public ResponseEntity<?> handleHttpClientError(ApiException e) {
         //ServiceException exception = new ServiceException(e.getStatusCode(), e.getMessage());
 
-        //TODO customize respond DTO message
-
         ErrorResponse errorResponse=new ErrorResponse(e.getStatus().getReasonPhrase(), e.getMessage());
 
         return ResponseEntity.status(e.getStatus()).body(errorResponse);
