@@ -3,7 +3,7 @@ package com.khem.appspring.springphoneshop.service.serviceimpl;
 import org.springframework.stereotype.Service;
 
 import com.khem.appspring.springphoneshop.dto.ModelDTO;
-import com.khem.appspring.springphoneshop.exception.ApiException;
+// import com.khem.appspring.springphoneshop.exception.ApiException;
 import com.khem.appspring.springphoneshop.exception.ResourceNotFoundException;
 import com.khem.appspring.springphoneshop.mapper.ModelMapper;
 import com.khem.appspring.springphoneshop.model.Model;
@@ -22,7 +22,7 @@ public class ModelServiceimpl implements ModelService {
     private final BrandService brandService;
 
     @Override
-    public Model save(ModelDTO dto) throws ApiException {
+    public Model save(ModelDTO dto){
 
         Integer brandId = dto.getBrandDTO().getId();
         brandService.getById(brandId);
@@ -31,7 +31,7 @@ public class ModelServiceimpl implements ModelService {
     }
 
     @Override
-    public Model getById(Integer id) throws ApiException {
+    public Model getById(Integer id){
          return  modelRepository.findById(id)
         //  .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND,String.format("model not found for id=%d", id)));
         .orElseThrow(() -> new ResourceNotFoundException("Model",id));
