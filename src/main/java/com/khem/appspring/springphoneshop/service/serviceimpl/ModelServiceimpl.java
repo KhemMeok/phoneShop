@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.collections4.MapUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
@@ -98,5 +99,15 @@ public class ModelServiceimpl implements ModelService {
         return modelRepository.findAll(specification, Sort.by(Order.asc("id")));
 
     }
+    public List<Model> getModel_new(Map<String, String> param) {
+//        modelRepository.findAll(null, null);
+    	return null;
+        }
+
+	@Override
+	public Page<Model> getModelPagination(Map<String, String> param) {
+		
+		return null;
+	}
 
 }
