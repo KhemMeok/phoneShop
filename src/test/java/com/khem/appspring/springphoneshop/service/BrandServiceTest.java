@@ -1,8 +1,13 @@
 package com.khem.appspring.springphoneshop.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,8 +32,8 @@ public class BrandServiceTest {
 	public void setup(){
 		brandService = new  BrandServiceimpl(brandRepository);
 	}
-	@Test
-	public void testServicebrand() {
+	// @Test
+	public void testServicebrand_old() {
 		
 		
 		
@@ -46,6 +51,13 @@ public class BrandServiceTest {
 				return brandEntity;
 			}
 		});
+		
+		// when(brandRepository.save(any(Brand.class))).thenAnswer(invocation ->{
+			
+		// 	Brand brandEntity = invocation.getArgument(0);
+		// 	brandEntity.setId(1);
+		// 	return brandEntity;
+		// });
 
 		Brand brandReturn = brandService.save(brand);
 		
@@ -53,6 +65,59 @@ public class BrandServiceTest {
 		//then
 		assertEquals("Apple", brandReturn.getName());
 		assertEquals(1, brandReturn.getId());
+
+		verify(brandRepository,times(1)).save(brand);
 		
 	}
+
+	@Test
+	public void testServicebrand() {
+		
+		
+		
+		//given
+		Brand brand = new Brand();
+		brand.setName("Apple");
+		
+		//when
+		
+		
+		// when(brandRepository.save(any(Brand.class))).thenAnswer(invocation ->{
+			
+		// 	Brand brandEntity = invocation.getArgument(0);
+		// 	brandEntity.setId(1);
+		// 	return brandEntity;
+		// });
+
+		Brand brandReturn = brandService.save(brand);
+		
+		
+		//then
+		
+
+		verify(brandRepository,times(1)).save(brand);
+		
+	}
+
+	@Test
+	public void getById(){
+		//given
+
+		Brand brand = new Brand(1,"Apple");
+	 
+
+		//when
+
+		when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
+		Brand brandReturn = brandService.getById(1);
+
+		//then
+
+		assertNotNull(brandReturn);
+		assertEquals("Apple", brandReturn.getName());
+		assertEquals(1, brandReturn.getId());
+
+
+	}
+
 }
