@@ -1,7 +1,10 @@
 package com.khem.appspring.springphoneshop.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,6 +20,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
+import com.khem.appspring.springphoneshop.exception.ApiException;
 import com.khem.appspring.springphoneshop.model.Brand;
 import com.khem.appspring.springphoneshop.repository.BrandRepository;
 import com.khem.appspring.springphoneshop.service.serviceimpl.BrandServiceimpl;
@@ -100,7 +104,7 @@ public class BrandServiceTest {
 	}
 
 	@Test
-	public void getById(){
+	public void getByIdSucess(){
 		//given
 
 		Brand brand = new Brand(1,"Apple");
@@ -118,6 +122,26 @@ public class BrandServiceTest {
 		assertEquals(1, brandReturn.getId());
 
 
+	}
+	@Test
+	public void getByIdError() {
+		
+		//given
+		
+		
+		//when
+		when(brandRepository.findById(2)).thenReturn(Optional.empty());
+		
+		
+		
+		//then
+		 
+//		assertThrows(ApiException.class, ()->brandService.getById(2));
+		
+		assertThatThrownBy(()-> brandService.getById(2))
+		.isInstanceOf(ApiException.class)
+		.hasMessageStartingWith("brand not found for id=");
+		 
 	}
 
 }
