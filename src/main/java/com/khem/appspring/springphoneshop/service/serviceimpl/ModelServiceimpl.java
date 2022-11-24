@@ -35,12 +35,12 @@ public class ModelServiceimpl implements ModelService {
     private final BrandService brandService;
 
     @Override
-    public Model save(ModelDTO dto) {
+    public Model save(Model entity) {
 
-        Integer brandId = dto.getBrandDTO().getId();
-        brandService.getById(brandId);
-        Model model = ModelMapper.INSTANCE.toModel(dto);
-        return modelRepository.save(model);
+        
+        // brandService.getById(entity.getBrand.getId());
+        // Model model = ModelMapper.INSTANCE.toModel(entity);
+        return modelRepository.save(entity);
     }
 
     @Override

@@ -2,12 +2,11 @@ package com.khem.appspring.springphoneshop.service.serviceimpl;
 
 import java.util.List;
 
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.khem.appspring.springphoneshop.dto.BrandDTO;
 import com.khem.appspring.springphoneshop.exception.ApiException;
 import com.khem.appspring.springphoneshop.model.Brand;
 import com.khem.appspring.springphoneshop.repository.BrandRepository;
@@ -47,10 +46,13 @@ public class BrandServiceimpl implements BrandService {
     }
 
     @Override
-    public Brand update(Integer id, BrandDTO dto)  {
-        Brand brand = getById(id);
-        brand.setName(dto.getName());
-        return brandRepository.save(brand);
+    public Brand update(Integer id, Brand source) {
+        Brand target = getById(id);
+        // brand.setName(dto.getName());
+        // source.setId(id);
+        // BrandMapper.INSTANCE.update(target, source);
+        BeanUtils.copyProperties(source, target, "id");
+        return brandRepository.save(target);
     }
 
     @Override

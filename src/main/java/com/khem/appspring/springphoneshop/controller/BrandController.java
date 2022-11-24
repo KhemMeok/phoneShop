@@ -32,7 +32,7 @@ public class BrandController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BrandDTO dto) {
 
-        Brand brand = BrandMapper.INSTANCE.toEntiry(dto);
+        Brand brand = BrandMapper.INSTANCE.toEntity(dto);
         brand = brandService.save(brand);
         return ResponseEntity.ok(brand);
     }
@@ -44,8 +44,8 @@ public class BrandController {
 
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody BrandDTO dto) throws ApiException {
-
-        return ResponseEntity.ok(brandService.update(id, dto));
+        Brand brand = BrandMapper.INSTANCE.toEntity(dto);
+        return ResponseEntity.ok(brandService.update(id, brand));
     }
 
     @DeleteMapping("{id}")

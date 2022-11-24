@@ -5,6 +5,7 @@ package com.khem.appspring.springphoneshop.controller;
  
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,10 +32,16 @@ import lombok.RequiredArgsConstructor;
 public class ModelController {
 
     private final ModelService modelService;
+    
+    private final ModelMapper modelMapper;
+    
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody ModelDTO dto) throws ApiException {
-        Model model = modelService.save(dto);
+        // Model model = ModelMapper.INSTANCE.toModel(dto);
+        Model model = modelMapper.toModel(dto);
+        
+        model = modelService.save(model);
         // Model model = ModelMapper.INSTANCE.toModel(dto);
         ModelDTO modelDTO = ModelMapper.INSTANCE.toDTO(model);
         return ResponseEntity.ok(modelDTO);
