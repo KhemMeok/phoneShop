@@ -1,17 +1,14 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password: 
-  h2: 
-    console:
-      enabled: true
+    url: jdbc:postgresql://localhost:5432/ps2
+    username: phoneshop
+    password: 2002
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
         hibernate:
-         dialect: org.hibernate.dialect.H2Dialect
+         dialect: org.hibernate.dialect.PostgreSQL95Dialect
   jackson:
     serialization:
       fail-on-empty-beans: false
