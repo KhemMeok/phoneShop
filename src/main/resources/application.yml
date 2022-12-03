@@ -5,7 +5,7 @@ spring:
     password: 
   h2: 
     console:
-      enable: true
+      enabled: true
   jpa:
     hibernate:
       ddl-auto: create-drop

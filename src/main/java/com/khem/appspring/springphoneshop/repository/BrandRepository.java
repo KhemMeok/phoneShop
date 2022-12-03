@@ -7,5 +7,6 @@ import com.khem.appspring.springphoneshop.model.Brand;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand,Integer>{
-    
+     
+    // boolean existsByName(String name);
 }

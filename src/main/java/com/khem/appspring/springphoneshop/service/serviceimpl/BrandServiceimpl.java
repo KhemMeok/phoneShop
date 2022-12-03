@@ -67,6 +67,11 @@ public class BrandServiceimpl implements BrandService {
     @Override
     public List<Brand> findAll() {
 
+        // System.out.println("-----------------");
+        // boolean existsByName = brandRepository.existsByName("Nokia");
+        // System.out.println(existsByName);
+        // System.out.println("-----------------");
+
         return brandRepository.findAll();
     }
 
