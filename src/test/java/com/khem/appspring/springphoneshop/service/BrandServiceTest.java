@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,6 +14,8 @@ import java.util.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -33,6 +36,9 @@ public class BrandServiceTest {
 	private BrandRepository brandRepository;
 
 	private BrandService brandService;
+
+	@Captor
+	private ArgumentCaptor<Brand> brandCaptor;
 
 	private Brand brand;
 
@@ -159,11 +165,16 @@ public class BrandServiceTest {
 
 		// when
 		// when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
-		Brand brandAfterUpdate = brandService.update(1, brandUpdate);
 
+		Brand brandAfterUpdate = brandService.update(1, brandUpdate);
+		verify(brandRepository).save(brandCaptor.capture());
 		// then
 		// assertEquals(brandAfterUpdate.getName(), "Apple V2");
-		verify(brandRepository, times(1)).save(brandUpdate);
+		// verify(brandRepository, times(1)).save(brandUpdate);
+		verify(brandRepository,times(1)).findById(1);
+		verify(brandRepository,atMostOnce()).findById(1);
+		verify(brandRepository).save(brandCaptor.capture());
+		assertEquals(brandCaptor.getValue().getName(), brandUpdate.getName());
 
 	}
 

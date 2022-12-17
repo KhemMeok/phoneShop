@@ -23,4 +23,9 @@ public class Brand {
     @SequenceGenerator(name = "brand_seq_generator", initialValue = 1, sequenceName ="brand_seq_generator")
     private Integer id;
     private String name;
+
+    public Brand(String name) {
+        this.name = name;
+    }
+
 }
