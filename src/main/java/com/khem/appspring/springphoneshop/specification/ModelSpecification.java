@@ -12,7 +12,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
 
 import com.khem.appspring.springphoneshop.model.Brand;
+import com.khem.appspring.springphoneshop.model.Brand_;
 import com.khem.appspring.springphoneshop.model.Model;
+import com.khem.appspring.springphoneshop.model.Model_;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,12 +32,12 @@ public class ModelSpecification implements Specification<Model> {
         Join<Model, Brand> brand = model.join("brand");
 
         if (modelFilter.getModelId() != null) {
-            Predicate filModelId = model.get("id").in(modelFilter.getModelId());
+            Predicate filModelId = model.get(Model_.ID).in(modelFilter.getModelId());
             list.add(filModelId);
         }
         if (modelFilter.getModelName() != null) {
             // Predicate filModelName = model.get("name").in(modelFilter.getModelName());
-            Predicate filModelName = cb.like(model.get("name"), "%" + modelFilter.getModelName() + "%");
+            Predicate filModelName = cb.like(model.get(Model_.NAME), "%" + modelFilter.getModelName() + "%");
             list.add(filModelName);
         }
         if (modelFilter.getBrandId() != null) {
@@ -46,7 +48,7 @@ public class ModelSpecification implements Specification<Model> {
         }
         if (modelFilter.getBrandName() != null) {
 
-            Predicate brandName = cb.like(brand.get("name"), "%" + modelFilter.getBrandName() + "%");
+            Predicate brandName = cb.like(brand.get(Brand_.NAME), "%" + modelFilter.getBrandName() + "%");
             list.add(brandName);
 
         }
