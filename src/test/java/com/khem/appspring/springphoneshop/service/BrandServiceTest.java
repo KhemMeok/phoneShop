@@ -45,7 +45,7 @@ public class BrandServiceTest {
 	@BeforeEach // ver_UT meaing befor test any case we should refresh  resoure /state of service 
 	public void setup(){
 		brandService = new  BrandServiceimpl(brandRepository);
-		brand = new Brand(1, "Apple");
+		brand = new Brand(1, "Apple",true);
 		when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
 	}
 	// @Test
@@ -119,7 +119,7 @@ public class BrandServiceTest {
 	public void getByIdSucess(){
 		//given
 
-		Brand brand = new Brand(1,"Apple");
+		Brand brand = new Brand(1,"Apple",true);
 	 
 
 		//when
@@ -160,8 +160,8 @@ public class BrandServiceTest {
 	public void updateBrand() {
 
 		// given
-		Brand brandDB = new Brand(1, "Apple");
-		Brand brandUpdate = new Brand(1, "Apple V2");
+		Brand brandDB = new Brand(1, "Apple",true);
+		Brand brandUpdate = new Brand(1, "Apple V2",true);
 
 		// when
 		// when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
@@ -187,17 +187,20 @@ public class BrandServiceTest {
 		brandService.delete(brandToDelete);
 
 		// then
-		verify(brandRepository, times(1)).delete(brand);
+		verify(brandRepository).save(brandCaptor.capture());
+		assertEquals(false, brandCaptor.getValue().getActive());
+
+		verify(brandRepository, times(1)).save(brand);
 	}
 
 	@Test
 	public void testListBrand() {
 		// given
 		List<Brand> brand = List.of(
-				new Brand(1, "Apple"),
-				new Brand(1, "Samsung"));
+				new Brand(1, "Apple",true),
+				new Brand(1, "Samsung",true));
 		// when
-		when(brandRepository.findAll()).thenReturn(brand);
+		when(brandRepository.findByActive()).thenReturn(brand);
 		List<Brand> brandReturn = brandService.findAll();
 
 		// then

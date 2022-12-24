@@ -58,7 +58,9 @@ public class BrandServiceimpl implements BrandService {
     @Override
     public void delete(Integer id)  {
         Brand brand = getById(id);
-        brandRepository.delete(brand);
+        // brandRepository.delete(brand);
+        brand.setActive(false);
+        brandRepository.save(brand);
         log.info("brand with id = %d is deleted".formatted(id));
         // log.info("brand with id = %d is deleted", id);
 
@@ -72,7 +74,7 @@ public class BrandServiceimpl implements BrandService {
         // System.out.println(existsByName);
         // System.out.println("-----------------");
 
-        return brandRepository.findAll();
+        return brandRepository.findByActive();
     }
 
 }

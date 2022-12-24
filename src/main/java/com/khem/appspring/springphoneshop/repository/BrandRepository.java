@@ -14,4 +14,5 @@ public interface BrandRepository extends JpaRepository<Brand,Integer>{
 
      List<Brand> findByIdIn(List<Integer> ids);
 
+     List<Brand> findByActive();
 }
