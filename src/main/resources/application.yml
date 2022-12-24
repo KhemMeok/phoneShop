@@ -12,7 +12,10 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
-
+application:
+  rest:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:4200, http://localhost:8080}
+    contxet-path: /api
 
 
 
