@@ -1,38 +1,88 @@
 package com.khem.appspring.springphoneshop.repository;
 
+<<<<<<< HEAD
+=======
+import static org.junit.jupiter.api.Assertions.assertEquals;
+>>>>>>> 66d739289257e951be959e785364821af8ffeb51
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.khem.appspring.springphoneshop.model.Brand;
+<<<<<<< HEAD
 
 
 @DataJdbcTest
+=======
+@DataJpaTest
+>>>>>>> 66d739289257e951be959e785364821af8ffeb51
 public class BrandRepositoryTest {
-
+    
     @Autowired
     private BrandRepository brandRepository;
 
+    // @BeforeEach
+    // public void setUp(){
+    //     brandRepository.deleteAll();
+    // }
+
     @Test
-    public void testExitByname() {
-        // given
+    public void testExistsByname(){
+
+        //geiven
         Brand brand = new Brand();
         brand.setName("Samsung");
         brandRepository.save(brand);
 
-        // when
+        //when
         boolean existsByName = brandRepository.existsByName("Samsung");
+<<<<<<< HEAD
         boolean existsByName2 = brandRepository.existsByName("Ipad");
+=======
+        boolean existsByName2 = brandRepository.existsByName("iphone");
+>>>>>>> 66d739289257e951be959e785364821af8ffeb51
 
-        // then
-        // assertEquals(true, existsByName);
+
+
+        //then
         assertTrue(existsByName);
         assertFalse(existsByName2);
 
     }
+<<<<<<< HEAD
    
+=======
+
+    @Test
+    public void findByIdIn(){
+        //given
+        Brand brand = new Brand("Iphone");
+        Brand brand2  = new Brand("Samsung");
+        brandRepository.save(brand);
+        brandRepository.save(brand2);
+
+        //when
+        List<Brand> brands = brandRepository.findByIdIn(List.of(1,2));
+
+
+        //then
+        assertEquals(2, brands.size());
+        
+        assertEquals(1, brands.get(0).getId());
+        assertEquals("Iphone", brands.get(0).getName());
+
+        assertEquals(2, brands.get(1).getId());
+        assertEquals("Samsung", brands.get(1).getName());
+
+        List<Brand> findAll = brandRepository.findAll();
+        assertEquals(2, findAll.size());
+
+    }
+>>>>>>> 66d739289257e951be959e785364821af8ffeb51
 
 }
