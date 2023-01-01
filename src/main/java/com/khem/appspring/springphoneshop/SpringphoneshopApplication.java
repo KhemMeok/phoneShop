@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringphoneshopApplication {
 
 	public static void main(String[] args) {
+		//this is main
 		SpringApplication.run(SpringphoneshopApplication.class, args);
+		
 	}
 
 }
