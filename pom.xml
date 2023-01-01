@@ -18,6 +18,16 @@
 	</properties>
 	<dependencies>
 
+
+
+<dependency>
+   <groupId>commons-configuration</groupId>
+   <artifactId>commons-configuration</artifactId>
+   <version>1.9</version>
+</dependency>
+
+
+
  <dependency>
    <groupId>org.springframework.boot</groupId>
    <artifactId>spring-boot-starter-data-jpa</artifactId>

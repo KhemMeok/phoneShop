@@ -55,7 +55,7 @@ public class BrandReposityTest {
         brandRepository.save(brand2);
 
         //when
-        List<Brand> brands = brandRepository.findByIdIn(List.of(1,2));
+        List<Brand> brands = brandRepository.findByIdIn(List.of(1L,2L));
 
 
         //then

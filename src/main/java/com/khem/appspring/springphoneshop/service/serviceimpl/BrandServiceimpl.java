@@ -30,7 +30,7 @@ public class BrandServiceimpl implements BrandService {
     }
 
     @Override
-    public Brand getById(Integer id)  {
+    public Brand getById(Long id)  {
 
         Brand brandOptinal = brandRepository.findById(id).orElseThrow(
                 () -> new ApiException(HttpStatus.NOT_FOUND, String.format("brand not found for id=%d", id)));
@@ -46,7 +46,7 @@ public class BrandServiceimpl implements BrandService {
     }
 
     @Override
-    public Brand update(Integer id, Brand source) {
+    public Brand update(Long id, Brand source) {
         Brand target = getById(id);
         // brand.setName(dto.getName());
         // source.setId(id);
@@ -56,7 +56,7 @@ public class BrandServiceimpl implements BrandService {
     }
 
     @Override
-    public void delete(Integer id)  {
+    public void delete(Long id)  {
         Brand brand = getById(id);
         // brandRepository.delete(brand);
         brand.setActive(false);
@@ -74,7 +74,7 @@ public class BrandServiceimpl implements BrandService {
         // System.out.println(existsByName);
         // System.out.println("-----------------");
 
-        return brandRepository.findByActive();
+        return brandRepository.findByActiveTrue();
     }
 
 }

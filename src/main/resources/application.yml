@@ -5,14 +5,17 @@ spring:
     password: 2002
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update 
     properties:
         hibernate:
          dialect: org.hibernate.dialect.PostgreSQL95Dialect
   jackson:
     serialization:
       fail-on-empty-beans: false
-
+application:
+   rest:
+       context-path: /api
+       allowed-origins: ${ALLOWED_ORIGINS:http://localhost:4200, http://localhost:8080}
 
 
 
