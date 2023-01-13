@@ -10,7 +10,7 @@ import com.khem.appspring.springphoneshop.model.Model;
 
 public interface ModelService {
     Model save(Model entity);
-    Model getById(Integer id);
+    Model getById(Long id);
     // List<Model> getModel(Map<String,String> param);
     Page<Model> getModels(Map<String,String> param);
 }

@@ -44,7 +44,7 @@ public class ModelServiceimpl implements ModelService {
     }
 
     @Override
-    public Model getById(Integer id) {
+    public Model getById(Long id) {
         return modelRepository.findById(id)
                 // .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND,String.format("model
                 // not found for id=%d", id)));

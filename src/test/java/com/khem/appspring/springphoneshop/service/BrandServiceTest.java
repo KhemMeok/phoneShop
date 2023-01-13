@@ -45,8 +45,8 @@ public class BrandServiceTest {
 	@BeforeEach // ver_UT meaing befor test any case we should refresh  resoure /state of service 
 	public void setup(){
 		brandService = new  BrandServiceimpl(brandRepository);
-		brand = new Brand(1, "Apple",true);
-		when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
+		brand = new Brand(1L, "Apple",true);
+		when(brandRepository.findById(1L)).thenReturn(Optional.of(brand));
 	}
 	// @Test
 	public void testServicebrand_old() {
@@ -63,7 +63,7 @@ public class BrandServiceTest {
 			@Override
 			public Brand answer(InvocationOnMock invocation) throws Throwable {
 				Brand brandEntity = invocation.getArgument(0);
-				brandEntity.setId(1);
+				brandEntity.setId(1L);
 				return brandEntity;
 			}
 		});
@@ -119,7 +119,7 @@ public class BrandServiceTest {
 	public void getByIdSucess(){
 		//given
 
-		Brand brand = new Brand(1,"Apple",true);
+		Brand brand = new Brand(1L,"Apple",true);
 	 
 
 		//when
@@ -128,7 +128,7 @@ public class BrandServiceTest {
 		// Brand brandReturn = brandService.getById(1);
 
 		//then
-		Brand brandReturn = brandService.getById(1);
+		Brand brandReturn = brandService.getById(1L);
 		assertNotNull(brandReturn);
 		assertEquals("Apple", brandReturn.getName());
 		assertEquals(1, brandReturn.getId());
@@ -142,7 +142,7 @@ public class BrandServiceTest {
 		
 		
 		//when
-		when(brandRepository.findById(2)).thenReturn(Optional.empty());
+		when(brandRepository.findById(2L)).thenReturn(Optional.empty());
 		
 		
 		
@@ -150,7 +150,7 @@ public class BrandServiceTest {
 		 
 //		assertThrows(ApiException.class, ()->brandService.getById(2));
 		
-		assertThatThrownBy(()-> brandService.getById(2))
+		assertThatThrownBy(()-> brandService.getById(2L))
 		.isInstanceOf(ApiException.class)
 		.hasMessageStartingWith("brand not found for id=");
 		 
@@ -160,19 +160,19 @@ public class BrandServiceTest {
 	public void updateBrand() {
 
 		// given
-		Brand brandDB = new Brand(1, "Apple",true);
-		Brand brandUpdate = new Brand(1, "Apple V2",true);
+		Brand brandDB = new Brand(1L, "Apple",true);
+		Brand brandUpdate = new Brand(1L, "Apple V2",true);
 
 		// when
 		// when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
 
-		Brand brandAfterUpdate = brandService.update(1, brandUpdate);
+		Brand brandAfterUpdate = brandService.update(1L, brandUpdate);
 		verify(brandRepository).save(brandCaptor.capture());
 		// then
 		// assertEquals(brandAfterUpdate.getName(), "Apple V2");
 		// verify(brandRepository, times(1)).save(brandUpdate);
-		verify(brandRepository,times(1)).findById(1);
-		verify(brandRepository,atMostOnce()).findById(1);
+		verify(brandRepository,times(1)).findById(1L);
+		verify(brandRepository,atMostOnce()).findById(1L);
 		verify(brandRepository).save(brandCaptor.capture());
 		assertEquals(brandCaptor.getValue().getName(), brandUpdate.getName());
 
@@ -181,7 +181,7 @@ public class BrandServiceTest {
 	@Test
 	public void testDelete() {
 		// given
-		Integer brandToDelete = 1;
+		Long brandToDelete = 1L;
 
 		// when
 		brandService.delete(brandToDelete);
@@ -197,10 +197,10 @@ public class BrandServiceTest {
 	public void testListBrand() {
 		// given
 		List<Brand> brand = List.of(
-				new Brand(1, "Apple",true),
-				new Brand(1, "Samsung",true));
+				new Brand(1L, "Apple",true),
+				new Brand(1L, "Samsung",true));
 		// when
-		when(brandRepository.findByActive()).thenReturn(brand);
+		when(brandRepository.findByActiveTrue()).thenReturn(brand);
 		List<Brand> brandReturn = brandService.findAll();
 
 		// then

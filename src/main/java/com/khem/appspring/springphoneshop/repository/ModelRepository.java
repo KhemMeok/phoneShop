@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.khem.appspring.springphoneshop.model.*;
 @Repository
-public interface ModelRepository extends JpaRepository<Model, Integer> ,JpaSpecificationExecutor<Model> {
+public interface ModelRepository extends JpaRepository<Model, Long> ,JpaSpecificationExecutor<Model> {
 
 }

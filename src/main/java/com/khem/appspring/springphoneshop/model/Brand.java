@@ -21,7 +21,7 @@ public class Brand {
     // @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @GeneratedValue(generator = "brand_seq_generator")
     @SequenceGenerator(name = "brand_seq_generator", initialValue = 1, sequenceName ="brand_seq_generator")
-    private Integer id;
+    private Long id;
     private String name;
     private Boolean active;
 

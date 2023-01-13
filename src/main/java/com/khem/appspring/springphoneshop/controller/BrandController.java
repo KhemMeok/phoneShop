@@ -38,18 +38,18 @@ public class BrandController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") int id) throws ApiException {
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) throws ApiException {
         return ResponseEntity.ok(brandService.getById(id));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody BrandDTO dto) throws ApiException {
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody BrandDTO dto) throws ApiException {
         Brand brand = BrandMapper.INSTANCE.toEntity(dto);
         return ResponseEntity.ok(brandService.update(id, brand));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") int id) throws ApiException {
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) throws ApiException {
         brandService.delete(id);
         return ResponseEntity.ok().build();
     }
