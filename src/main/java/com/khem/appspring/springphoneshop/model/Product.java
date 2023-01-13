@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -17,7 +18,7 @@ import lombok.Data;
  
 
 @Entity
-@Table(name = "products",uniqueConstraints = {@UniqueConstraint( columnNames = { "model_id"})})
+@Table(name = "products",uniqueConstraints = {@UniqueConstraint( columnNames = { "id"})})
 @Data
 public class Product {
 

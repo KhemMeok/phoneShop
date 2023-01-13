@@ -67,4 +67,13 @@ public class ProdcutServiceMPL implements ProductService {
 		return productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("product not font for id=%ld", id));
 	}
 
+	@Override
+	public Product setPrice(Long productId, Double price) {
+		//check if product exist, get product
+		Product product = getById(productId);
+		product.setSalePrice(price);
+		
+		return productRepository.save(product);
+	}
+
 }
