@@ -13,9 +13,10 @@ spring:
     serialization:
       fail-on-empty-beans: false
 application:
-   rest:
-       context-path: /api
-       allowed-origins: ${ALLOWED_ORIGINS:http://localhost:4200, http://localhost:8080}
+  rest:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:4200, http://localhost:8080}
+    contxet-path: /api
+
 
 
 
