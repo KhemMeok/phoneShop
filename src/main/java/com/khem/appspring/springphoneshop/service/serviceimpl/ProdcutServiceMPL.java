@@ -1,9 +1,17 @@
 package com.khem.appspring.springphoneshop.service.serviceimpl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.khem.appspring.springphoneshop.Util.PageUtil;
+import com.khem.appspring.springphoneshop.dto.ProductDisplayDTO;
 import com.khem.appspring.springphoneshop.dto.ProductImportDTO;
 import com.khem.appspring.springphoneshop.exception.ResourceNotFoundException;
 import com.khem.appspring.springphoneshop.mapper.ProductImportHistoryMapper;
@@ -12,9 +20,12 @@ import com.khem.appspring.springphoneshop.model.Color;
 import com.khem.appspring.springphoneshop.model.Model;
 import com.khem.appspring.springphoneshop.model.Product;
 import com.khem.appspring.springphoneshop.model.ProductImportHistory;
+import com.khem.appspring.springphoneshop.repository.ColorRepository;
+import com.khem.appspring.springphoneshop.repository.ModelRepository;
 import com.khem.appspring.springphoneshop.repository.ProductImportHistoryRepository;
 import com.khem.appspring.springphoneshop.repository.ProductRepository;
 import com.khem.appspring.springphoneshop.service.ProductService;
+import com.khem.appspring.springphoneshop.specification.ProductSpacifition;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +38,10 @@ public class ProdcutServiceMPL implements ProductService {
     private final ProductImportHistoryRepository importHistoryRepository;
     
     private final ProductMapper productMapper;
+
+	private final ModelRepository modelRepository;
+
+	private final ColorRepository colorRepository;
 
     @Override
     public Product save(ProductImportDTO dto)    {	
@@ -76,4 +91,34 @@ public class ProdcutServiceMPL implements ProductService {
 		return productRepository.save(product);
 	}
 
-}
+	@Override
+	public Page<Product> getProducts(Map<String, String> params) {
+		// Specification<Product> productSpcification = (product, query, cb) -> null;
+		Pageable pageable = PageUtil.getPageable(params);
+		return productRepository.findAll(new ProductSpacifition(), pageable);
+
+	}
+	@Override
+	public List<ProductDisplayDTO> toProductDisplayDTO(List<Product> products){
+		List<ProductDisplayDTO> displayDTOs = new ArrayList<>();
+
+		List<Long> modelId = products.stream().map(p-> p.getModel().getId()).collect(Collectors.toList());
+		List<Model> models = modelRepository.findAllById(modelId);
+		Map<Long, String> modelMap = models.stream().collect(Collectors.toMap(p->p.getId(),p-> p.getName()));
+
+		List<Long> colorIds = products.stream().map(p-> p.getColor().getId()).collect(Collectors.toList());
+		List<Color> colors = colorRepository.findAllById(colorIds);
+		Map<Long, String> colorMap = colors.stream().collect(Collectors.toMap( Color::getId ,  Color::getName ));
+
+		for(Product product : products){
+			ProductDisplayDTO dto = new ProductDisplayDTO();
+			dto.setId(product.getId());
+			dto.setName(product.getName());
+			dto.setSalePrice(product.getSalePrice());
+			dto.setModel(modelMap.get(product.getModel().getId()));
+			dto.setColor(colorMap.get(product.getColor().getId()));
+			displayDTOs.add(dto);
+		}
+		return displayDTOs;
+	}
+ }
