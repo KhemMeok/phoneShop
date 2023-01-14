@@ -8,6 +8,6 @@ public class ProductDisplayDTO {
 	private String name;
 	private String model;
 	private String color;
-	private double salePrice;
+	private Double salePrice;
 	
 }
