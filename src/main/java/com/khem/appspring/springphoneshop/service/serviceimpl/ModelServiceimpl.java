@@ -1,5 +1,4 @@
 package com.khem.appspring.springphoneshop.service.serviceimpl;
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import com.khem.appspring.springphoneshop.Util.PageUtil;
 import com.khem.appspring.springphoneshop.exception.ResourceNotFoundException;
 import com.khem.appspring.springphoneshop.model.Model;
 import com.khem.appspring.springphoneshop.repository.ModelRepository;
-import com.khem.appspring.springphoneshop.service.BrandService;
 import com.khem.appspring.springphoneshop.service.ModelService;
 import com.khem.appspring.springphoneshop.specification.ModelFilter;
 import com.khem.appspring.springphoneshop.specification.ModelSpecification;
@@ -30,7 +28,7 @@ public class ModelServiceimpl implements ModelService {
 
     private final ModelRepository modelRepository;
 
-    private final BrandService brandService;
+    // private final BrandService brandService;
 
     @Override
     public Model save(Model entity) {

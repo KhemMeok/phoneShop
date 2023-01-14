@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.khem.appspring.springphoneshop.dto.PageDTO;
 import com.khem.appspring.springphoneshop.dto.PriceDTO;
-import com.khem.appspring.springphoneshop.dto.ProductDTO2;
-import com.khem.appspring.springphoneshop.dto.ProductDisplayDTO;
 import com.khem.appspring.springphoneshop.dto.ProductImportDTO;
 import com.khem.appspring.springphoneshop.mapper.PageMapper;
 import com.khem.appspring.springphoneshop.mapper.ProductMapper;
