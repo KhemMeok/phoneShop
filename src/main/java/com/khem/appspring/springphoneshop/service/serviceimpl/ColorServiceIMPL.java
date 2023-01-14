@@ -24,7 +24,7 @@ public class ColorServiceIMPL implements ColorService{
 
 	@Override
 	public Color getById(Long id) {
-		return colorRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Color not found for id=%ld", id));
+		return colorRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Color not found for id=%d", id));
 	}
 
 }

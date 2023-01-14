@@ -3,8 +3,7 @@ package com.khem.appspring.springphoneshop.dto;
 import lombok.Data;
 
 @Data
-public class BrandDTO {
+public class ColorDTO {
     private Long id;
     private String name;
-    private Boolean active;
 }
