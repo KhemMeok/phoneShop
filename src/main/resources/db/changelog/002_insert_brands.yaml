@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 002_insert_brands
-      author: piseth@gmail.com
+      author: meokkhem@gamil.com
       changes:
         - loadData:
             file: db/data/002/brands.csv
