@@ -19,6 +19,11 @@
 	<dependencies>
 
 
+ <dependency>
+    <groupId>org.liquibase</groupId>
+     <artifactId>liquibase-core</artifactId>
+</dependency>
+
 
 <dependency>
    <groupId>commons-configuration</groupId>
