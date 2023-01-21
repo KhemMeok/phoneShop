@@ -1,4 +1,7 @@
 spring:
+  liquibase:
+        change-log: classpath:db/changelog/db.changelog-master.yaml
+        enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5432/ps2
     username: phoneshop
@@ -16,6 +19,7 @@ application:
   rest:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:4200, http://localhost:8080}
     contxet-path: /api
+  
 
 
 
