@@ -1,5 +1,7 @@
 package com.khem.appspring.springphoneshop.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +48,7 @@ public class Product {
 //    private BigDecimal importPrice;
 
     @Column(name = "sale_price")
-    private Double salePrice;
+    private BigDecimal salePrice;
 
 //    @Column(name = "date_import")
     

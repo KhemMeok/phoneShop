@@ -1,5 +1,7 @@
 package com.khem.appspring.springphoneshop.dto;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -8,6 +10,6 @@ public class ProductDisplayDTO {
 	private String name;
 	private String model;
 	private String color;
-	private Double salePrice;
+	private BigDecimal salePrice;
 	
 }

@@ -1,18 +1,22 @@
 package com.khem.appspring.springphoneshop.service.serviceimpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.khem.appspring.springphoneshop.Util.PageUtil;
 import com.khem.appspring.springphoneshop.dto.ProductDisplayDTO;
 import com.khem.appspring.springphoneshop.dto.ProductImportDTO;
+import com.khem.appspring.springphoneshop.exception.ApiException;
 import com.khem.appspring.springphoneshop.exception.ResourceNotFoundException;
 import com.khem.appspring.springphoneshop.mapper.ProductImportHistoryMapper;
 import com.khem.appspring.springphoneshop.mapper.ProductMapper;
@@ -83,7 +87,7 @@ public class ProdcutServiceMPL implements ProductService {
 	}
 
 	@Override
-	public Product setPrice(Long productId, Double price) {
+	public Product setPrice(Long productId, BigDecimal price) {
 		//check if product exist, get product
 		Product product = getById(productId);
 		product.setSalePrice(price);
@@ -120,5 +124,15 @@ public class ProdcutServiceMPL implements ProductService {
 			displayDTOs.add(dto);
 		}
 		return displayDTOs;
+	}
+
+	@Override
+	public boolean hasAvialableUint(Long productId, Integer orderUint) {
+		
+		Product product = getById(productId);
+		  	if( product.getAvailableUnit() < orderUint) {
+		  		throw new ApiException(HttpStatus.BAD_REQUEST,"product (%s) id=%d not aviable for sale".formatted(product.getName(),productId));
+		  	}
+	 return true;
 	}
  }

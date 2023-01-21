@@ -1,7 +1,7 @@
 databaseChangeLog:
 - changeSet:
     id: 003_add_table_sale_and_sale_detail
-    author: piseth.ing@gmail.com
+    author: meokkhem@gamil.com
     changes:
     - createTable:
         tableName: sales

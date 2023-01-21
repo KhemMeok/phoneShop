@@ -17,7 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name = "sale_details")
 
-public class Sale_Detail {
+public class SaleDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -32,5 +32,6 @@ public class Sale_Detail {
 	
 	private BigDecimal amount;
 	
+	private Integer unit;
 	
 }
