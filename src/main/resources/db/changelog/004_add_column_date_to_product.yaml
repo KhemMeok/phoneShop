@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 003_add_table_sale_and_sale_detail
+    author: meokkhem@gamil.com
+    changes:
+      - addColumn:
+          tableName: prosucts
+          columns:
+          - column: 
+              name: date_created
+              type: DATE
+          - column: 
+              name: date_updated
+              type: DATE
