@@ -9,9 +9,9 @@ import com.khem.appspring.springphoneshop.model.Model;
 import com.khem.appspring.springphoneshop.service.BrandService;
 
 @Mapper(componentModel = "spring" ,uses={BrandService.class})
-public interface ModelMapper {
+public interface ModelEntityMapper {
 
-    ModelMapper INSTANCE = Mappers.getMapper(ModelMapper.class);
+    ModelEntityMapper INSTANCE = Mappers.getMapper(ModelEntityMapper.class);
 
      @Mapping(target = "brand" ,source = "dto.brandId")
     Model toModel(ModelDTO dto);
