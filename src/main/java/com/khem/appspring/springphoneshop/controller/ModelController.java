@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.khem.appspring.springphoneshop.dto.ModelDTO;
 import com.khem.appspring.springphoneshop.dto.PageDTO;
 import com.khem.appspring.springphoneshop.exception.ApiException;
-import com.khem.appspring.springphoneshop.mapper.ModelMapper;
+import com.khem.appspring.springphoneshop.mapper.ModelEntityMapper;
 import com.khem.appspring.springphoneshop.mapper.PageMapper;
 import com.khem.appspring.springphoneshop.model.Model;
 import com.khem.appspring.springphoneshop.service.ModelService;
@@ -32,17 +32,17 @@ public class ModelController {
 
     private final ModelService modelService;
     
-    private final ModelMapper modelMapper;
+    private final ModelEntityMapper modelEntityMapper;
     
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody ModelDTO dto) throws ApiException {
         // Model model = ModelMapper.INSTANCE.toModel(dto);
-        Model model = modelMapper.toModel(dto);
+        Model model = modelEntityMapper.toModel(dto);
         
         model = modelService.save(model);
         // Model model = ModelMapper.INSTANCE.toModel(dto);
-        ModelDTO modelDTO = ModelMapper.INSTANCE.toDTO(model);
+        ModelDTO modelDTO = ModelEntityMapper.INSTANCE.toDTO(model);
         return ResponseEntity.ok(modelDTO);
     }
     @GetMapping("{id}")
@@ -50,7 +50,7 @@ public class ModelController {
 
         Model model = modelService.getById(id);
 
-        return ResponseEntity.ok(ModelMapper.INSTANCE.toDTO(model));
+        return ResponseEntity.ok(ModelEntityMapper.INSTANCE.toDTO(model));
     }
     @GetMapping
     public ResponseEntity<?> getModelList(@RequestParam Map<String,String> params){
@@ -65,7 +65,7 @@ public class ModelController {
         // PageDTO pageDTO = new PageDTO(page);
         // PageDTO pageDTO = PageMapper.INSTANCE.toDTO(page2);
         PageDTO pageDTO = PageMapper.INSTANCE.toDTO(page);
-        pageDTO.setList(page.get().map(ModelMapper.INSTANCE::toDTO).toList());
+        pageDTO.setList(page.get().map(ModelEntityMapper.INSTANCE::toDTO).toList());
         return ResponseEntity.ok(pageDTO);
     }
 }

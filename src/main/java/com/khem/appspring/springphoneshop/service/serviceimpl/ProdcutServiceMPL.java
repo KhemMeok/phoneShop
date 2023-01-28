@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -134,5 +135,14 @@ public class ProdcutServiceMPL implements ProductService {
 		  		throw new ApiException(HttpStatus.BAD_REQUEST,"product (%s) id=%d not aviable for sale".formatted(product.getName(),productId));
 		  	}
 	 return true;
+	}
+
+	@Override
+	public boolean salePriceIsSet(Long productId) {
+		Product product = getById(productId);
+		if(Objects.isNull(product.getSalePrice())){
+			throw new ApiException(HttpStatus.BAD_REQUEST,"product (%s) id=%d not set sale price".formatted(product.getName(),productId));
+		}
+		return false;
 	}
  }
