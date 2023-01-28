@@ -13,5 +13,6 @@ import lombok.NoArgsConstructor;
 
 public class SaleDTO {
 	private List<ProductOrderDTO> products;
+	
 	private LocalDateTime soldDate;
 }
