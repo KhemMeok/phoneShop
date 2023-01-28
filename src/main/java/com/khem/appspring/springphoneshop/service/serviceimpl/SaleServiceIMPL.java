@@ -41,6 +41,9 @@ public class SaleServiceIMPL implements SaleService{
 		List<ProductOrderDTO> productOrderDTO=saleDTO.getProducts();
 		for(ProductOrderDTO orderDTO : productOrderDTO) {
 			productService.hasAvialableUint(orderDTO.getProductId(), orderDTO.getUnit());
+
+			productService.salePriceIsSet(orderDTO.getProductId());
+
 		}
 		
 		List<Long> productIds = productOrderDTO.stream()
