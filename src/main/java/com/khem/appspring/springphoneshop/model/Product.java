@@ -14,6 +14,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
  
 
  
@@ -21,6 +22,7 @@ import lombok.Data;
 @Entity
 @Table(name = "products",uniqueConstraints = {@UniqueConstraint( columnNames = { "id"})})
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Product extends AuditEntity {
 
     @Id

@@ -19,9 +19,9 @@ application:
   rest:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:4200, http://localhost:8080}
     contxet-path: /api
-mvc:
-  pathmatch:
-    matching-strategy:  ANT_PATH_MATCHER
+  mvc:
+    pathmatch:
+        matching-strategy: ant_path_matcher
 
 
 
