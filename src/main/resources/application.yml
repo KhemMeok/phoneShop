@@ -3,7 +3,7 @@ spring:
         change-log: classpath:db/changelog/db.changelog-master.yaml
         
   datasource:
-    url: jdbc:postgresql://localhost:5432/ps2
+    url: jdbc:postgresql://localhost:5432/phoneshop
     username: phoneshop
     password: 2002
   jpa:
