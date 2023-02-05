@@ -4,7 +4,7 @@ databaseChangeLog:
     author: meokkhem@gamil.com
     changes:
       - addColumn:
-          tableName: prosucts
+          tableName: products
           columns:
           - column: 
               name: date_created

@@ -80,7 +80,7 @@ databaseChangeLog:
 - changeSet:
     id: 1674290836460-4
     author: ACER (generated)
-    changes:
+    changes:  
     - createTable:
         columns:
         - column:

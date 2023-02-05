@@ -22,6 +22,9 @@ application:
   rest:
     allowed-Origins: ${ALLOWED_ORIGINS:http://localhost:4200}
     context-path: /api
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
     
 
 
