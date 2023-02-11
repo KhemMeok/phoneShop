@@ -33,47 +33,55 @@ public class ReportingServiceIMLP implements ReportingService {
     }
 
     @Override
-    public List<SaleByDateDTO> getProductBySoldDateV2(LocalDate soldDate) {
-        SaleDetailFilter detailFilter = new SaleDetailFilter();
-        detailFilter.setSoldDate(soldDate);
+	public List<SaleByDateDTO> getProductSoldByDateV2(LocalDate soldDate) {
+		SaleDetailFilter detailFilter = new SaleDetailFilter();
+		detailFilter.setSoldDate(soldDate);
 
-        SaleDetailSpac spac = new SaleDetailSpac(detailFilter);
+		SaleDetailSpac spec = new SaleDetailSpac(detailFilter);
+		List<SaleDetail> saleDetails = saleDetailRepository.findAll(spec);
 
-        List<SaleDetail> saleDetails = saleDetailRepository.findAll(spac);
+		Map<Product, List<SaleDetail>> saleByProductMap = saleDetails.stream()
+			.collect(Collectors.groupingBy(SaleDetail::getProduct));
 
-        List<Long> productIds = saleDetails.stream().map(sd -> sd.getProduct().getId()).toList();
+		List<Long> productIds = saleDetails.stream()
+				.map(sd -> sd.getProduct().getId())
+				.toList();
 
-        Map<Product, List<SaleDetail>> saleByproductMap = saleDetails.stream().collect(Collectors.groupingBy(SaleDetail::getProduct));
+			List<Product> products = productRepository.findAllById(productIds);
+			Map<Long, Product> productMap = products.stream()
+				.collect(Collectors.toMap(Product::getId, Function.identity()));
 
-        List<Product> products = productRepository.findAllById(productIds);
+		List<SaleByDateDTO> saleByDateDTOs = new ArrayList<>();
+		for(Map.Entry<Product, List<SaleDetail>> entry : saleByProductMap.entrySet()) {
 
-        Map<Long, Product> productMap = products.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
-		
-        List<SaleByDateDTO> dtos = new ArrayList<>();
+			Product product = productMap.get(entry.getKey().getId());
+			List<SaleDetail> saleDetailsList = entry.getValue();
+			/*
+			Integer totalUnit = saleDetailsList.stream()
+				.map(SaleDetail::getUnit)
+				.reduce((a,b) -> a+b)
+				.get();
+			*/
 
-        for(Map.Entry<Product, List<SaleDetail>> entry : saleByproductMap.entrySet()){
-           
-            Product product = productMap.get(entry.getKey().getId());
-            List<SaleDetail> saleDetailsList = entry.getValue();
+			Long totalUnit = saleDetailsList.stream()
+				.collect(Collectors.summingLong(SaleDetail::getUnit));
 
-            // Integer sumAmount = saleDetailsList.stream()
-            //                                    .map(SaleDetail::getUnit)
-            //                                    .reduce((a,b)->a+b).get();
+			Double amount = saleDetailsList.stream()
+				.collect(Collectors.summingDouble(sd -> sd.getAmount().doubleValue()));
 
-            Long totalUnit = saleDetailsList.stream().collect(Collectors.summingLong(SaleDetail::getUnit));
 
-            Double amount = saleDetailsList.stream().collect(Collectors.summingDouble(sd -> sd.getAmount().doubleValue()));
+			SaleByDateDTO dto = new SaleByDateDTO();
+			dto.setSoldDate(soldDate);
+			dto.setProductId(product.getId());
+			dto.setProductName(product.getName());
+			dto.setTotalUnit(totalUnit);
+			dto.setAmount(amount);
+			saleByDateDTOs.add(dto);
+		}
 
-            SaleByDateDTO dto = new SaleByDateDTO();
-            dto.setSoldDate(soldDate);
-            dto.setProductid(product.getId());
-            dto.setProductName(product.getName());
-            dto.setTotalUnit(totalUnit);
-            dto.setAmount(amount);
-            dtos.add(dto);
-        }
- 
-        return dtos;
-    }
+		return saleByDateDTOs;
+	}
 
 }
+
+

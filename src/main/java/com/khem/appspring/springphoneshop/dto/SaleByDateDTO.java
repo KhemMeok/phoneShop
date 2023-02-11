@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class SaleByDateDTO {
     private LocalDate soldDate;
-    private Long productid;
+    private Long productId;
     private String productName;
     private Long totalUnit;
     private Double amount;

@@ -30,7 +30,7 @@ public class ReportController {
     @GetMapping("/dailyProduct/v2/{soldDate}")
     public ResponseEntity<?> getProductSoldDateV2(
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate soldDate) {
-         List<SaleByDateDTO> productBySoldDate = reportingService.getProductBySoldDateV2(soldDate);
+         List<SaleByDateDTO> productBySoldDate = reportingService.getProductSoldByDateV2(soldDate);
          return ResponseEntity.ok(productBySoldDate);
     }
 }

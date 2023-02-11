@@ -10,6 +10,6 @@ import com.khem.appspring.springphoneshop.projection.SaleByDate;
 @Service
 public interface ReportingService {
     List<SaleByDate> getProductBySoldDate(LocalDate soldDate);
-    List<SaleByDateDTO> getProductBySoldDateV2(LocalDate soldDate);
+    List<SaleByDateDTO> getProductSoldByDateV2(LocalDate soldDate);
 
 }
