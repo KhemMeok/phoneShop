@@ -9,8 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 class SpringphoneshopApplicationTests {
 
-	//@Test
-	void contextLoads() {
-	}
+	// @Test
+	// void contextLoads() {
+	// }
 
 }

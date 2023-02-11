@@ -3,7 +3,7 @@ package com.khem.appspring.springphoneshop.projection;
 import java.time.LocalDate;
 
 public interface SaleByDate {
-    LocalDate getsoldDate();
+    LocalDate getSoldDate();
     Long getProductId();
     String getProductName();
     Long getTotal();
