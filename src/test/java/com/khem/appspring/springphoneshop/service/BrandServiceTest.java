@@ -119,7 +119,7 @@ public class BrandServiceTest {
 	public void getByIdSucess(){
 		//given
 
-		Brand brand = new Brand(1L,"Apple",true);
+		 new Brand(1L,"Apple",true);
 	 
 
 		//when
@@ -160,13 +160,13 @@ public class BrandServiceTest {
 	public void updateBrand() {
 
 		// given
-		Brand brandDB = new Brand(1L, "Apple",true);
+		new Brand(1L, "Apple",true);
 		Brand brandUpdate = new Brand(1L, "Apple V2",true);
 
 		// when
 		// when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
 
-		Brand brandAfterUpdate = brandService.update(1L, brandUpdate);
+		brandService.update(1L, brandUpdate);
 		verify(brandRepository).save(brandCaptor.capture());
 		// then
 		// assertEquals(brandAfterUpdate.getName(), "Apple V2");

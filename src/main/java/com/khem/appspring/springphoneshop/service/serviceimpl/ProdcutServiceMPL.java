@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.hibernate.service.spi.ServiceException;
+ 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -83,7 +82,7 @@ public class ProdcutServiceMPL implements ProductService {
 
 	@Override
 	public Product getById(Long id) {
-		// TODO Auto-generated method stub
+		 
 		return productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("product not font for id=%ld", id));
 	}
 

@@ -1,7 +1,7 @@
 package com.khem.appspring.springphoneshop.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+ 
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
