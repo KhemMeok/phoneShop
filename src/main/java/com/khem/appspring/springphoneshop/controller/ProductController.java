@@ -2,6 +2,8 @@ package com.khem.appspring.springphoneshop.controller;
 
 import java.util.Map;
 
+import javax.validation.Path.ReturnValueNode;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,10 +48,14 @@ public class ProductController {
 
         PageDTO pageDTO = PageMapper.INSTANCE.toDTO(productsPage);
         pageDTO.setList(productService.toProductDisplayDTO(productsPage.getContent()));
-
         
         return ResponseEntity.ok(pageDTO);
     }
-   
+    @PostMapping
+    public ResponseEntity<?> uploadProductFromExcelFile(@RequestBody ProductImportDTO dto){
+    	
+    	return null;
+    }
+    
 
 }
