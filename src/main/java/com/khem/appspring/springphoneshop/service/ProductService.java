@@ -3,6 +3,7 @@ package com.khem.appspring.springphoneshop.service;
 import java.math.BigDecimal;
 import java.util.*;
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khem.appspring.springphoneshop.dto.ProductDisplayDTO;
 import com.khem.appspring.springphoneshop.dto.ProductImportDTO;
@@ -18,4 +19,5 @@ public interface ProductService {
     List<ProductDisplayDTO> toProductDisplayDTO(List<Product> listProduc);
     boolean hasAvialableUint(Long productId,Integer orderUint);
     boolean salePriceIsSet(Long productId);
+    void uploadProductFromExcelFile(MultipartFile file);
 }

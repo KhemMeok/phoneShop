@@ -2,8 +2,6 @@ package com.khem.appspring.springphoneshop.controller;
 
 import java.util.Map;
 
-import javax.validation.Path.ReturnValueNode;
-
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khem.appspring.springphoneshop.dto.PageDTO;
 import com.khem.appspring.springphoneshop.dto.PriceDTO;
@@ -52,9 +51,9 @@ public class ProductController {
         return ResponseEntity.ok(pageDTO);
     }
     @PostMapping
-    public ResponseEntity<?> uploadProductFromExcelFile(@RequestBody ProductImportDTO dto){
-    	
-    	return null;
+    public ResponseEntity<?> uploadProductFromExcelFile(@RequestParam("file") MultipartFile file){
+    	productService.uploadProductFromExcelFile(file);
+    	return ResponseEntity.ok().build();
     }
     
 
