@@ -1,17 +1,25 @@
 package com.khem.appspring.springphoneshop.service.serviceimpl;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
- 
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khem.appspring.springphoneshop.Util.PageUtil;
 import com.khem.appspring.springphoneshop.dto.ProductDisplayDTO;
@@ -143,5 +151,28 @@ public class ProdcutServiceMPL implements ProductService {
 			throw new ApiException(HttpStatus.BAD_REQUEST,"product (%s) id=%d not set sale price".formatted(product.getName(),productId));
 		}
 		return false;
+	}
+
+	@Override
+	public void uploadProductFromExcelFile(MultipartFile file) {
+		 
+		try {
+			Workbook workbook = new XSSFWorkbook(file.getInputStream());
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Iterator<Row> rowIterator = sheet.iterator();
+			rowIterator.next();	//TODO validate frist row
+			if(rowIterator.hasNext()){
+				Row row = rowIterator.next(); 
+				Cell cellModelId = row.getCell(0);
+				Long modelId = (long) cellModelId.getNumericCellValue();
+				System.out.println(modelId);
+			}
+
+
+		} catch (IOException e) {	 
+			e.printStackTrace();
+		}
+		
 	}
  }

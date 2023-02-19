@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khem.appspring.springphoneshop.dto.PageDTO;
 import com.khem.appspring.springphoneshop.dto.PriceDTO;
@@ -46,10 +47,14 @@ public class ProductController {
 
         PageDTO pageDTO = PageMapper.INSTANCE.toDTO(productsPage);
         pageDTO.setList(productService.toProductDisplayDTO(productsPage.getContent()));
-
         
         return ResponseEntity.ok(pageDTO);
     }
-   
+    @PostMapping
+    public ResponseEntity<?> uploadProductFromExcelFile(@RequestParam("file") MultipartFile file){
+    	productService.uploadProductFromExcelFile(file);
+    	return ResponseEntity.ok().build();
+    }
+    
 
 }
