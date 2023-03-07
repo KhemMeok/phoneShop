@@ -50,7 +50,7 @@ public class ProductController {
         
         return ResponseEntity.ok(pageDTO);
     }
-    @PostMapping
+    @PostMapping("uploadProducts")
     public ResponseEntity<?> uploadProductFromExcelFile(@RequestParam("file") MultipartFile file){
     	productService.uploadProductFromExcelFile(file);
     	return ResponseEntity.ok().build();
