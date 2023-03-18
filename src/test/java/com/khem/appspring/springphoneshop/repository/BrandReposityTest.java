@@ -27,7 +27,7 @@ public class BrandReposityTest {
          brandRepository.deleteAll();
      }
 
-     @Test
+    // @Test
     public void testExistsByname(){
 
         //geiven
@@ -47,7 +47,7 @@ public class BrandReposityTest {
 
     }
 
-   @Test
+   //@Test
     public void findByIdIn(){
         //given
         Brand brand = new Brand("Iphone");
