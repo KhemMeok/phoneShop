@@ -23,6 +23,10 @@ public enum RoleEnum {
         Set<SimpleGrantedAuthority> permission = this.getPermitionEnums().stream()
             .map(per -> new SimpleGrantedAuthority(per.getDescription()))
             .collect(Collectors.toSet());
+
+            SimpleGrantedAuthority role = new SimpleGrantedAuthority("ROLE_"+this.name());
+            permission.add(role);
+
             return permission;
     }
 }
