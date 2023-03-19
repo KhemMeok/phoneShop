@@ -1,16 +1,23 @@
 package com.khem.appspring.springphoneshop.service.serviceimpl;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.khem.appspring.springphoneshop.Util.PageUtil;
 import com.khem.appspring.springphoneshop.exception.ApiException;
 import com.khem.appspring.springphoneshop.model.Brand;
 import com.khem.appspring.springphoneshop.repository.BrandRepository;
 import com.khem.appspring.springphoneshop.service.BrandService;
+import com.khem.appspring.springphoneshop.specification.BrandFilter;
+import com.khem.appspring.springphoneshop.specification.BrandSpecification;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +82,27 @@ public class BrandServiceimpl implements BrandService {
         // System.out.println("-----------------");
 
         return brandRepository.findByActiveTrue();
+    }
+
+    @Override
+    public Page<Brand> getBrandPage(Map<String, String> param) {
+        Pageable pageable = PageUtil.getPageable(param);
+
+        BrandFilter brandFilter = new BrandFilter();
+        if (param.containsKey("brandId")) {
+            brandFilter.setBrandId(Long.valueOf(MapUtils.getInteger(param, "brandId")));
+        }
+        if (param.containsKey("brandName")) {
+            brandFilter.setBrandName(MapUtils.getString(param, "modelName"));
+
+        }
+         
+        BrandSpecification brandSpecification = new BrandSpecification(brandFilter);
+
+        Page<Brand> page = brandRepository.findAll(brandSpecification, pageable);
+
+        page.getNumberOfElements();
+        return page;
     }
 
 }
