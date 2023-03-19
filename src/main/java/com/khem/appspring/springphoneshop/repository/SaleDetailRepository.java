@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.khem.appspring.springphoneshop.dto.SaleByDateDTO;
 import com.khem.appspring.springphoneshop.model.SaleDetail;
 import com.khem.appspring.springphoneshop.projection.SaleByDate;
 
