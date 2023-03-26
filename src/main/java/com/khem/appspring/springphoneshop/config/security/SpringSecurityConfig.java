@@ -1,17 +1,22 @@
 package com.khem.appspring.springphoneshop.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 import com.khem.appspring.springphoneshop.config.security.jwt.JWTLoginFilter;
 import com.khem.appspring.springphoneshop.config.security.jwt.TokenVerifyFiltre;
@@ -21,30 +26,39 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableGlobalMethodSecurity(
+    prePostEnabled = true,
+    securedEnabled = true,
+    jsr250Enabled = true
+)
+public class SpringSecurityConfig  {//extends WebSecurityConfigurerAdapter
 
     private final PasswordEncoder passEcode;
 
     private final UserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Autowired
+    private AuthenticationConfiguration authenticationConfiguration;
+
+   // @Override
+   @Bean
+    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
-                .addFilter(new JWTLoginFilter(authenticationManager()))
+                .addFilter(new JWTLoginFilter(authenticationManager(authenticationConfiguration)))
                 .addFilterAfter(new TokenVerifyFiltre(), JWTLoginFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "index", "home").permitAll()
-                .antMatchers("/models").hasRole("Sale")
-                .antMatchers(HttpMethod.POST, "/brands").hasAuthority(PermitionEnum.BRAND_WRITE.getDescription())
-                .antMatchers(HttpMethod.GET, "/brands").hasAuthority(PermitionEnum.BRAND_READ.getDescription())
+                // .antMatchers("/models").hasRole("SALE")
+                // .antMatchers(HttpMethod.POST, "/brands").hasAuthority(PermitionEnum.BRAND_WRITE.getDescription())
+                // .antMatchers(HttpMethod.GET, "/brands").hasAuthority(PermitionEnum.BRAND_READ.getDescription())
                 .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
-
+                .authenticated();
+                // .and()
+                // .httpBasic();
+        return http.build();
     }
     /*
      * @Bean
@@ -76,7 +90,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      * 
      */
 
-    @Override
+    //@Override
+    // @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(getAuthenticationProvider());
     }
@@ -87,5 +102,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passEcode);
         return provider;
+    }
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

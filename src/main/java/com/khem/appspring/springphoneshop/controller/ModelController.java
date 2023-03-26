@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +53,7 @@ public class ModelController {
 
         return ResponseEntity.ok(ModelEntityMapper.INSTANCE.toDTO(model));
     }
+    @PreAuthorize("hasRole('ROLE_SALE')")
     @GetMapping
     public ResponseEntity<?> getModelList(@RequestParam Map<String,String> params){
         // List<ModelDTO> listDTO = modelService.getModels(params)

@@ -3,9 +3,12 @@ package com.khem.appspring.springphoneshop.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +37,8 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    // @PreAuthorize("hasAuthority('brands:write')")
+    @PreAuthorize("hasAnyAuthority('brands:write','brands:read')")
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BrandDTO dto) {
 
@@ -41,7 +46,7 @@ public class BrandController {
         brand = brandService.save(brand);
         return ResponseEntity.ok(brand);
     }
-
+    @RolesAllowed("ROLE_SALE")
     @GetMapping("{id}")
     public ResponseEntity<?> getById(@PathVariable("id") Long id) throws ApiException {
         return ResponseEntity.ok(brandService.getById(id));
@@ -59,6 +64,7 @@ public class BrandController {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAuthority('brands:read')")
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<BrandDTO> brand = brandService.findAll()
