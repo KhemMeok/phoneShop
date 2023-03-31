@@ -1,5 +1,6 @@
 package com.khem.appspring.springphoneshop.config.security;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.khem.appspring.springphoneshop.service.ApplicationUserService;
 
 import lombok.RequiredArgsConstructor;
+@Primary
 @Service
 @RequiredArgsConstructor
 public class AuthUserService implements UserDetailsService {

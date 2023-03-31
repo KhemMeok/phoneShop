@@ -38,7 +38,7 @@ public class BrandController {
     private BrandService brandService;
 
     // @PreAuthorize("hasAuthority('brands:write')")
-    @PreAuthorize("hasAnyAuthority('brands:write','brands:read')")
+    @PreAuthorize("hasAnyAuthority('brands:write')")//,'brands:read'
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BrandDTO dto) {
 

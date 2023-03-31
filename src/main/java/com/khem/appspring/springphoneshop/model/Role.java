@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name = "roles")
@@ -19,6 +20,6 @@ public class Role {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
-    @OneToMany
+    @ManyToMany
     private Set<Permission> permissions;
 }
