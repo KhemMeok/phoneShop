@@ -22,6 +22,8 @@ application:
   mvc:
     pathmatch:
         matching-strategy: ant_path_matcher
+server:
+  key: Key12$#/2023Key12$#/2023Key12$#/2023Key12$#/2023Key12$#/2023
 
 
 
